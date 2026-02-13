@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        /* 배경 및 기본 설정 */
+        body {
+            background-color: #000; /* 블랙 배경 */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 사진 그리드 설정 (한 줄에 3개) */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3열 구성 */
+            gap: 15px; /* 사진 사이 간격 */
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* 사진 컨테이너 (3:2 세로 비율 유지) */
+        .photo-item {
+            position: relative;
+            width: 100%;
+            padding-top: 150%; /* 3:2 비율 (2 / 3 * 100 = 150%) */
+            overflow: hidden;
+            background-color: #1a1a1a; /* 로딩 전 빈 공간 색상 */
+        }
+
+        /* 이미지 스타일 */
+        .photo-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 비율 깨짐 방지 */
+            transition: opacity 0.3s;
+        }
+
+        .photo-item img:hover {
+            opacity: 0.8;
+        }
+
+        /* 모바일 대응: 화면이 작아지면 한 줄에 1~2개로 조정 */
+        @media (max-width: 768px) {
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery">
+        <div class="photo-item"><img src="photo1.jpg" alt="사진1"></div>
+        <div class="photo-item"><img src="photo2.jpg" alt="사진2"></div>
+        <div class="photo-item"><img src="photo3.jpg" alt="사진3"></div>
+        <div class="photo-item"><img src="photo4.jpg" alt="사진4"></div>
+        <div class="photo-item"><img src="photo5.jpg" alt="사진5"></div>
+        <div class="photo-item"><img src="photo6.jpg" alt="사진6"></div>
+        </div>
+
+</body>
+</html>
