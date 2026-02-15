@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>archive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
         /* 배경 및 기본 설정 */
         body {
@@ -54,30 +57,151 @@
         @media (max-width: 480px) {
             .gallery { grid-template-columns: 1fr; }
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            display: flex;
+            background-color: transparent;
+            /* Remove fixed width/height to allow centering by content */
+            width: auto;
+            height: auto;
+            max-width: 90%;
+            max-height: 90%;
+            align-items: stretch; /* Stretch items to match height */
+            justify-content: center; 
+            gap: 20px; /* Space between image and text */
+            margin: auto; 
+        }
+
+        .modal-image-container {
+            /* Remove flex: 3 to stop it from taking up fixed space */
+            /* flex: 3; */
+            height: auto; 
+            max-height: 80vh; /* Limit height relative to viewport */
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            padding-right: 0;
+        }
+
+        .modal-image-container img {
+            /* Image defines the size */
+            height: auto;
+            width: auto;
+            max-height: 80vh;
+            max-width: 60vw; /* Adjust as needed */
+            object-fit: contain;
+        }
+
+        .modal-info-container {
+            /* Remove flex: 1 */
+            /* flex: 1; */
+            flex-shrink: 0; /* Prevent shrinking */
+            width: 400px; /* Fixed width for metadata */
+            /* height: auto; - Removed to allow stretch */
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'JetBrainsMono NF Light', monospace;
+            font-weight: 100; /* Thinner */
+            white-space: pre;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 30px; /* Smaller font size */
+            font-weight: 300; /* Thinner */
+            cursor: pointer;
+            z-index: 1001;
+        }
     </style>
 </head>
 <body>
 
     <div class="gallery">
-        <div class="photo-item"><img src="amore_lab.jpg" alt="p1"></div>
-        <div class="photo-item"><img src="goose.jpg" alt="p2"></div>
-        <div class="photo-item"><img src="north_seoul_park.jpg" alt="p3"></div>
-        <div class="photo-item"><img src="cat1.jpg" alt="p4"></div>
-        <div class="photo-item"><img src="olympic_park.jpg" alt="p5"></div>
-        <div class="photo-item"><img src="아마도_일월저수지.jpg" alt="p6"></div>
-        <div class="photo-item"><img src="han_river.jpg" alt="p7"></div>
-        <div class="photo-item"><img src="sunset.jpg" alt="p8"></div>
-        <div class="photo-item"><img src="ktx_2.jpg" alt="p9"></div>
-        <div class="photo-item"><img src="ktx_1.jpg" alt="p10"></div>
-        <div class="photo-item"><img src="window.jpg" alt="p11"></div>
-        <div class="photo-item"><img src="plane.jpg" alt="p12"></div>
-        <div class="photo-item"><img src="idk_1.jpg" alt="p13"></div>
-        <div class="photo-item"><img src="aquarium.jpg" alt="p14"></div>
-        <div class="photo-item"><img src="gangneung_2.jpg" alt="p15"></div>
-        
-        
-
+        <div class="photo-item"><img src="amore_lab.jpg" alt="p1" data-month="nov." data-year="2023" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="goose.jpg" alt="p2" data-month="may." data-year="2024" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="north_seoul_park.jpg" alt="p3" data-month="sep." data-year="2023" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="cat1.jpg" alt="p4" data-month="sep." data-year="2023" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="olympic_park.jpg" alt="p5" data-month="sep." data-year="2023" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="아마도_일월저수지.jpg" alt="p6" data-month="apr." data-year="2024" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="han_river.jpg" alt="p7" data-month="jul." data-year= "2023" data-camera= "sony a7m4" data-lens= "24-105mm f/4" onclick= "openModal(this)"></div>
+        <div class="photo-item"><img src="sunset.jpg" alt="p8" data-month="jun." data-year="2023" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="ktx_2.jpg" alt="p9" data-month="dec." data-year="2024" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="ktx_1.jpg" alt="p10" data-month="dec." data-year="2024" data-camera="sony a7m4" data-lens="24-105mm f/4" onclick="openModal(this)"></div>
+        <div class="photo-item"><img src="window.jpg" alt="p11" data-month="aug." data-year="2024" data-camera="sony a7m4" data-lens= "24-105mm f/4" onclick= "openModal(this)"></div>
+        <div class="photo-item"><img src="plane.jpg" alt="p12" data-month="aug." data-year= "2024" data-camera= "sony a7m4" data-lens= "24-105mm f/4" onclick= "openModal(this)"></div>
+        <div class="photo-item"><img src= "idk_1.jpg" alt= "p13" data-month= "feb." data-year= "2023" data-camera= "sony a7m4" data-lens= "24-105mm f/4" onclick= "openModal(this)"></div>
+        <div class="photo-item"><img src= "aquarium.jpg" alt= "p14" data-month= "jul." data-year= "2023" data-camera= "sony a7m4"data-lens = "24-105mm f/4" onclick = "openModal(this)"></div>
+        <div class= "photo-item"><img src= "gangneung_2.jpg" alt= "p15" data-month= "dec." data-year= "2024" data-camera= "sony a7m4" data-lens= "24-105mm f/4" onclick= "openModal(this)"></div>
     </div>
 
-</body>
-</html>
+    <!-- Modal Structure -->
+    <div id="photoModal" class="modal" onclick="closeModal(event)">
+        <span class="close" onclick="document.getElementById('photoModal').style.display='none'">&times;</span>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-image-container">
+                <img id="modalImg" src="">
+            </div>
+            <div class="modal-info-container">
+                <div id="modalText"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(element) {
+            var modal = document.getElementById("photoModal");
+            var modalImg = document.getElementById("modalImg");
+            var modalText = document.getElementById("modalText");
+            
+            modal.style.display = "flex";
+            modalImg.src = element.src;
+            
+            // Get metadata from data attributes
+            var month = element.getAttribute("data-month") || "Unknown";
+            var year = element.getAttribute("data-year") || "Unknown";
+            var camera = element.getAttribute("data-camera") || "Unknown";
+            var lens = element.getAttribute("data-lens") || "Unknown";
+
+            var metadata = {
+                "metadata": {
+                    "month": month,
+                    "year": year,
+                    "camera": camera,
+                    "lens": lens,
+                }
+            };
+            
+            modalText.textContent = JSON.stringify(metadata, null, 4);
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById("photoModal")) {
+                document.getElementById("photoModal").style.display = "none";
+            }
+        }
+        
+        // Add click event to all images dynamically if not inline
+        // (The inline onclicks were added above for simplicity in one go)
+    </script>
